@@ -3,17 +3,17 @@ from imageio import imread
 import cv2
 from tqdm import tqdm
 from model.abstract_model import AbstractModel
-from model.detection_model.detection_model import DefaultDetectionModel
+#from model.detection_model.detection_model import DefaultDetectionModel
 from model.siamese.siamese_model import DefaultSiameseModel
-from model.tracker.default_tracker import DefaultTracker
+#from model.tracker.default_tracker import DefaultTracker
 
 
 class Model(AbstractModel):
     def __init__(
         self,
-        detection_model: DefaultDetectionModel,
+        #detection_model: DefaultDetectionModel,
         recognition_model: DefaultSiameseModel,
-        tracker: DefaultTracker,
+        #tracker: DefaultTracker,
     ):
         """
         Args:
@@ -22,9 +22,9 @@ class Model(AbstractModel):
             tracker: Tracker
         """
         super().__init__()
-        self.detection_model = detection_model
+        #self.detection_model = detection_model
         self.recognition_model = recognition_model
-        self.tracker = tracker
+        #self.tracker = tracker
 
     def predict_image(self, path_to_img: str):
         """

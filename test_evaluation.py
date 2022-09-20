@@ -11,21 +11,22 @@ gpu = tf.config.experimental.list_physical_devices('GPU')
 tf.config.experimental.set_memory_growth(gpu[0], True)
 
 from model.siamese.model_generator import base_models
-from model.detection_model.detection_model import DefaultDetectionModel
+#from model.detection_model.detection_model import DefaultDetectionModel
 from model.siamese.siamese_model import DefaultSiameseModel
 from model.siamese.classification_model import ClassificationModel
-from model.tracker.default_tracker import DefaultTracker
+#from model.tracker.default_tracker import DefaultTracker
 from model.tracker.simple_siamese_tracker import SimpleSiameseTracker
-from model.tracker.tracker import Tracker
-from model.tracker.avg_embedding_tracker import AvgEmbeddingTracker
-from model.tracker.default_tracker_with_path_correction import (
-    DefaultTrackerWithPathCorrection,
-)
+#from model.tracker.tracker import Tracker
+#from model.tracker.avg_embedding_tracker import AvgEmbeddingTracker
+# from model.tracker.default_tracker_with_path_correction import (
+#     DefaultTrackerWithPathCorrection,
+# )
 from model.model import Model
 from data.evaluator import Evaluator
-from data.names import names
+#from data.names import names
 from helpers.score_processing import extract_scores, print_path_comparison
 
+names = pd.read_csv('/Users/debbieliske/Documents/CodingProjects/farm-animal-tracking-main/names.csv')
 
 def generate_test_dir(basemodel, tracker, video):
     test_dir = os.path.join(

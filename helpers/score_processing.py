@@ -107,16 +107,19 @@ def cm_analysis(cm, labels, figsize=(30,30), filename="conf_matrix.png"):
                 annot[i, j] = '0'
             else:
                 annot[i, j] = '%.1f%%\n%d' % (p, c)
+    #display(pd.DataFrame(cm)) # DLiske
+    #cm = pd.DataFrame(cm, index=labels, columns=labels)
+    print("CM SHAPE", cm.shape)
     cm = pd.DataFrame(cm, index=labels, columns=labels)
     cm.index.name = 'Actual'
     cm.columns.name = 'Predicted'
     fig, ax = plt.subplots(figsize=figsize)
     fig.suptitle('Confusion Matrix', fontsize=42)
-    ax.xaxis.label.set_size(36)
-    ax.yaxis.label.set_size(36)
+    ax.xaxis.label.set_size(33)
+    ax.yaxis.label.set_size(33)
     ax.tick_params(axis='both', which='major', labelsize=26)
-    sns.set(font_scale=2.0)
-    sns.heatmap(cm, cmap="viridis", annot=annot, fmt='', ax=ax)
+    sns.set(font_scale=1.8)
+    sns.heatmap(cm, cmap="viridis", annot=annot, fmt='', ax=ax, cbar=False)
     plt.savefig(filename, transparent=True)
     # plt.show()
 

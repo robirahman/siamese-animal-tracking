@@ -19,16 +19,19 @@ __C.MODEL.WEIGHTS_PATH = "weights/"
 
 # create Train options dict
 __C.TRAIN = EasyDict()
-__C.TRAIN.DATA_PATH = "./data/aug_data"
+#__C.TRAIN.DATA_PATH = "data/aug_data" 
+__C.TRAIN.DATA_PATH = 'data/filter_aug/train'
 __C.TRAIN.PATIENCE = 30  # for EarlyStopping
 __C.TRAIN.EPOCHS = 150
-__C.TRAIN.BATCH_SIZE = 64
+#__C.TRAIN.BATCH_SIZE = 64
+__C.TRAIN.BATCH_SIZE = 54 # DLISKE b/c we have 27 individuals
 __C.TRAIN.LEARNING_RATE = 1e-4
 __C.TRAIN.WEIGHT_DECAY = 0.0005
 __C.TRAIN.LR_DECAY = 0.0001
 
 # create TEST options dict
 __C.TEST = EasyDict()
-__C.TEST.DATA_PATH = "./data/cropped_animals"
+#__C.TEST.DATA_PATH = "./data/cropped_animals"
+__C.TEST.DATA_PATH = "./data/filter_aug/test/" # DLiske
 __C.TEST.DATA_AUG = False
 __C.TEST.DETECTED_IMAGE_PATH = "./output/detection/"

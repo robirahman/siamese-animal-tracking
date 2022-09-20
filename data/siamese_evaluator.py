@@ -12,12 +12,13 @@ import tensorflow as tf
 from sklearn.metrics import confusion_matrix, classification_report
 from typing import List, Tuple
 from tqdm import tqdm
-from data.names import names
+#from data.names import names
 from scipy.spatial.distance import euclidean
 from data.data_generator import DataGenerator
 from model.siamese.siamese_model import DefaultSiameseModel
 
 tqdm.pandas()
+
 
 
 class SiameseEvaluator:
@@ -43,7 +44,8 @@ class SiameseEvaluator:
 
         """
         vectors = np.loadtxt(vectors_path, delimiter='\t')
-        meta = np.loadtxt(meta_path, delimiter='\t')
+        #meta = np.loadtxt(meta_path, delimiter='\t')
+        meta = np.loadtxt(meta_path, delimiter='\t', dtype='str') # DLiske
 
         for i, class_id in enumerate(meta):
             self.avg_vectors[class_id] = vectors[i]
@@ -81,7 +83,7 @@ class SiameseEvaluator:
             for i in range(0, len(images), interval):
                 pbar.update(interval)
                 mapped_images = np.array(list(map(DataGenerator.process_image, images[i:i+interval])))
-                embeddings = self.model.predict(mapped_images)
+                embeddings = self.model.predict(mapped_images, verbose=0)
                 best_class = None
 
                 # Compare avg embedding from interval with default vectors
@@ -94,11 +96,20 @@ class SiameseEvaluator:
                     classes = list(map(self.compare_mean_with_vectors, embeddings))
                     best_class = max(set(classes), key=classes.count)
 
-                predictions.append((class_id, best_class))
+                #predictions.append((class_id, best_class))
+                predictions.append((class_id, best_class, images[i])) #DLiske
 
-        y_true = [int(i[0]) for i in predictions]
-        y_pred = [int(i[1]) for i in predictions]
-        conf_matrix = confusion_matrix(y_true, y_pred)
-        class_report = classification_report(y_true, y_pred, target_names=names, output_dict=True)
+        # y_true = [int(i[0]) for i in predictions]
+        # y_pred = [int(i[1]) for i in predictions]
 
-        return conf_matrix, class_report
+        y_true = [i[0] for i in predictions] # DLiske removed int
+        y_pred = [i[1] for i in predictions] # DLiske removed int
+        names = np.load('/Users/debbieliske/Documents/CodingProjects/farm-animal-tracking-main/names.npy')
+        conf_matrix = confusion_matrix(y_true, y_pred,labels=names, normalize=None)
+        # print(len(names))
+        # print(y_true)
+        # #class_report = classification_report(y_true, y_pred, target_names=names, output_dict=True)
+        class_report = classification_report(y_true, y_pred, output_dict=True) # DLiske
+
+        return conf_matrix, class_report, predictions
+

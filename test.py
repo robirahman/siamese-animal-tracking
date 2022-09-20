@@ -9,7 +9,7 @@ from model.detection_model.detection_model import DefaultDetectionModel
 from model.siamese.siamese_model import DefaultSiameseModel
 from model.model import Model
 
-model = Model(DefaultDetectionModel(), DefaultSiameseModel(), 1)
+#model = Model(DefaultDetectionModel(), DefaultSiameseModel(), 1)
 
 image = model.print_bb_on_image(sys.argv[1])
 

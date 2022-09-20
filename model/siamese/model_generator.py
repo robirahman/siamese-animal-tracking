@@ -13,12 +13,14 @@ base_models = {
 default_layers_to_train = {
     "MobileNetV2": [""],
     "ResNet101V2": ["conv4"],
+    #"ResNet101V2": [""], # DLiske trying with top layer
     "EfficientNetB5": ["block3c", "block3b"],
 }
 
 default_base_layers = {
     "MobileNetV2": "block_10_project_BN",
     "ResNet101V2": "conv4_block23_out",
+    #"ResNet101V2": [""], # DLiske TESTING around!!!!
     "EfficientNetB5": "block3c_add"
 }
 

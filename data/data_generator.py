@@ -37,6 +37,7 @@ class DataGenerator(tf.keras.utils.Sequence):
     def __init__(
         self,
         folder_path=cfg.TRAIN.DATA_PATH,
+        #folder_path=cfg.TEST.DATA_PATH, # DLiske
         file_ext="jpg",
         debug=False,
         training=True,
@@ -76,7 +77,7 @@ class DataGenerator(tf.keras.utils.Sequence):
                 files.extend(glob.glob(f"{class_dir.path}/{pattern}.{ext}"))
             for i, file in enumerate(sorted(files)):
                 images.append((file, class_dir.name))
-
+        
         self.org_images = images[::self.step_size]
         batched = self.batch_images()
 
@@ -84,6 +85,8 @@ class DataGenerator(tf.keras.utils.Sequence):
         print(
             f'Found {len(self.images)} files for {len(self.images["label"].unique())} unique classes'
         )
+        #display(self.images[self.images['label']=='TVM 9 Male'][-30:])
+        #display(pd.DataFrame(self.images['label']).value_counts())
 
     def __len__(self):
         return math.ceil(len(self.images) / cfg.TRAIN.BATCH_SIZE)
@@ -109,7 +112,9 @@ class DataGenerator(tf.keras.utils.Sequence):
         images = self.org_images.copy()
         random.shuffle(images)
         images = pd.DataFrame(images, columns=["path", "label"])
+        #display(images['label'].value_counts())
         low_class_count = min(images["label"].value_counts())
+        #print("LOW CLASS COUNT", low_class_count)
         unique_classes = images["label"].unique()
 
         class_dfs = {}
@@ -165,7 +170,8 @@ class DataGenerator(tf.keras.utils.Sequence):
             int
 
         """
-        return int(label)
+        #return int(label)
+        return label # DLISKE: I'm not sure the point of this yet. Will probably cause a problem not being an INT
 
     def get_dataset(self):
         """
@@ -206,6 +212,7 @@ class DataGenerator(tf.keras.utils.Sequence):
         ]
         target = images.pop("label").map(DataGenerator.process_label).to_numpy()
         images = images.pop("path").map(DataGenerator.process_image).to_numpy()
+        #print(images.shape)
         reshaped_images = np.concatenate(images).reshape(
             (
                 images.shape[0],
