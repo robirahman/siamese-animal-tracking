@@ -104,7 +104,7 @@ class SiameseEvaluator:
 
         y_true = [i[0] for i in predictions] # DLiske removed int
         y_pred = [i[1] for i in predictions] # DLiske removed int
-        names = np.load('/Users/debbieliske/Documents/CodingProjects/farm-animal-tracking-main/names.npy')
+        names = np.load('names.npy')
         conf_matrix = confusion_matrix(y_true, y_pred,labels=names, normalize=None)
         # print(len(names))
         # print(y_true)
