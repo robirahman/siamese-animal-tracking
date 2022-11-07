@@ -6,6 +6,20 @@ IMAGE_DIRECTORY = 'C:/Users/robir/OneDrive/Documents/GitHub/csci-e-599/siamese-a
 
 
 def exclude_tortoise(file_path: str, folder_num: int) -> str:
+<<<<<<< Updated upstream
+=======
+    """
+
+    Args:
+        file_path: the path to the complete dataset with images of all tortoises.
+        folder_num: the number of the tortoise to exclude from the new dataset.
+        Note that it goes through folders in alphanumeric order, i.e. tortoise_10 comes before tortoise_2
+
+    Returns:
+        The path of the folder containing images of all tortoises except the excluded one.
+
+    """
+>>>>>>> Stashed changes
     train_src, test_src = file_path+"/train", file_path+"/test"
     train_dst = file_path + f"/tortoises_except_{folder_num}/train"
     test_dst = file_path + f"/tortoises_except_{folder_num}/test"

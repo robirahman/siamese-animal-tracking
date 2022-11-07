@@ -20,3 +20,4 @@ meta.tsv
 vecs.tsv
 /experiments/**/*
 **/*.h5
+.DS_Store
